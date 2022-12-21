@@ -43,17 +43,17 @@ public class JdbcUserDataDao implements UserDataDao {
         userData.setTargetHigh(rowSet.getInt("target_high"));
         userData.setFastingGlucose(rowSet.getInt("fasting_glucose"));
         userData.setDiabetesType(rowSet.getInt("diabetes_type"));
-        userData.setPreDiabetic(rowSet.getBoolean("pre_diabetic"));
+        userData.setPreDiabetic(rowSet.getBoolean("prediabetic"));
         userData.setUserAge(rowSet.getInt("user_age"));
-        userData.setWeightKg(rowSet.getInt("weight"));
-        userData.setHeightM(rowSet.getInt("height"));
+        userData.setWeightKg(rowSet.getInt("weight_kg"));
+        userData.setHeightM(rowSet.getInt("height_meters"));
         userData.setDailyCarbGoal(rowSet.getInt("daily_carb_goal"));
         userData.setDailyCalorieGoal(rowSet.getInt("daily_calorie_goal"));
-        userData.setGlycemicIndexGoal(rowSet.getInt("glycemic_index_goal"));
+        userData.setGlycemicIndexGoal(rowSet.getDouble("avg_glycemic_index_goal"));
         userData.setEmergencyContact1(rowSet.getString("emergency_contact_1"));
         userData.setEmergencyContact2(rowSet.getString("emergency_contact_2"));
-        userData.setDateLastUpdated(rowSet.getDate("last_updated").toLocalDate());
-        userData.setTimeLastUpdated(rowSet.getTime("last_updated").toLocalTime());
+        userData.setDateLastUpdated(rowSet.getDate("date_last_updated").toLocalDate());
+        userData.setTimeLastUpdated(rowSet.getTime("time_last_updated").toLocalTime());
         return userData;
     }
 }
