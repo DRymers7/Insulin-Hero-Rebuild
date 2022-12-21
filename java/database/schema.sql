@@ -1,9 +1,7 @@
 BEGIN TRANSACTION;
 
-rollback
-
 DROP TABLE IF EXISTS users, user_data, user_measurements, insulin_information, insulin, insulin_user_data_join, 
-meals, meal_information, meals_user_join, blood_sugar, blood_sugar_user_data_join,  CASCADE;
+meals, meal_information, meals_user_join, blood_sugar, blood_sugar_user_data_join, dose,  CASCADE;
 DROP SEQUENCE IF EXISTS seq_user_id, seq_insulin_id, seq_meal_id, seq_blood_sugar_id, seq_dose_id CASCADE;
 
 CREATE SEQUENCE seq_user_id
@@ -156,7 +154,7 @@ iron int,
 magnesium int,
 niacin int,
 phosphorus int,
-potassium, int,
+potassium int,
 protein int,
 riboflavin int,
 sodium int,
@@ -208,10 +206,12 @@ blood_sugar_id int NOT NULL PRIMARY KEY,
 input_level int, 
 type_of_dose varchar(32),
 time_of_dose TIME DEFAULT CURRENT_TIME,
-date_of_dose DATE DEFAULT CURRENT_DATE
+date_of_dose DATE DEFAULT CURRENT_DATE,
 
 CONSTRAINT FK_dose_blood_sugar FOREIGN KEY (blood_sugar_id) REFERENCES blood_sugar(blood_sugar_id)
 );
 
 INSERT INTO users (username,password_hash,role) VALUES ('user@example.com','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+
+COMMIT TRANSACTION
