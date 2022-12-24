@@ -37,16 +37,13 @@ public class JdbcBloodSugarDao implements BloodSugarDao {
     public BloodSugar createBloodSugar(int userId, BloodSugar bloodSugar) throws SQLException {
 
         try {
-            if (createBloodSugarJoinEntry(bloodSugar.getBloodSugarId(), userId)) {
 
-                String sql = "INSERT INTO blood_sugar (input_level, time_last_measurement, date_last_measurement) VALUES (?, ?, ?) RETURNING blood_sugar_id;";
-                int bloodSugarId = jdbcTemplate.queryForObject(sql, Integer.class, bloodSugar.getInputLevel(), bloodSugar.getTimeOfMeasurement(), bloodSugar.getDateOfMeasurement());
-                bloodSugar.setBloodSugarId(bloodSugarId);
-                return bloodSugar;
+            String sql = "INSERT INTO blood_sugar (input_level, time_last_measurement, date_last_measurement) VALUES (?, ?, ?) RETURNING blood_sugar_id;";
+            int bloodSugarId = jdbcTemplate.queryForObject(sql, Integer.class, bloodSugar.getInputLevel(), bloodSugar.getTimeOfMeasurement(), bloodSugar.getDateOfMeasurement());
+            createBloodSugarJoinEntry(userId, bloodSugarId);
+            bloodSugar.setBloodSugarId(bloodSugarId);
+            return bloodSugar;
 
-            } else {
-                throw new SQLException("Could not create blood sugar join entry.");
-            }
         } catch (SQLException e) {
             throw new SQLException("Could not create blood sugar reading.");
         }

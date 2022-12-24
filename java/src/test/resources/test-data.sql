@@ -283,7 +283,4 @@ VALUES (10.0, 10.0, '2022/12/12 00:00:00', 'Fiasp', 'Strong', 0.14);
 INSERT INTO insulin (base_level, avg_level, time_last_dose, insulin_brand_name, insulin_strength, insulin_ratio)
 VALUES (10.0, 10.0, '2022/11/11 00:00:00', 'Fiasp', 'Strong', 0.14);
 
-INSERT INTO blood_sugar_user_data_join (blood_sugar_id, user_id) VALUES (1, 1)
-INSERT INTO blood_sugar (blood_sugar_id, input_level, time_last_measurement, date_last_measurement) VALUES (1, 100, '12:00', '12/24/2022')
-
 COMMIT TRANSACTION
