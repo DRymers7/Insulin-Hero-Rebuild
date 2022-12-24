@@ -7,6 +7,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class JdbcBloodSugarDao implements BloodSugarDao {
@@ -34,15 +36,38 @@ public class JdbcBloodSugarDao implements BloodSugarDao {
     }
 
     @Override
+    public List<BloodSugar> getPreviousWeekBloodSugars(int userId) throws SQLException {
+
+        List<BloodSugar> previousWeek = new ArrayList<>();
+
+        String sql = "SELECT bs.blood_sugar_id, input_level, time_last_measurement, date_last_measurement FROM blood_sugar bs " +
+                "JOIN blood_sugar_user_data_join bj ON bj.blood_sugar_id = bs.blood_sugar_id " +
+                "WHERE bj.user_id = ? AND bs.date_last_measurement > (select CURRENT_DATE - interval '1 week' as month_w_31_days);";
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, userId);
+        while (rowSet.next()) {
+            previousWeek.add(mapRowToBloodSugar(rowSet));
+        }
+        if (previousWeek.size() == 0) {
+            throw new SQLException("Could not find reading history.");
+        }
+        return previousWeek;
+    }
+
+    @Override
     public BloodSugar createBloodSugar(int userId, BloodSugar bloodSugar) throws SQLException {
 
         try {
 
             String sql = "INSERT INTO blood_sugar (input_level, time_last_measurement, date_last_measurement) VALUES (?, ?, ?) RETURNING blood_sugar_id;";
             int bloodSugarId = jdbcTemplate.queryForObject(sql, Integer.class, bloodSugar.getInputLevel(), bloodSugar.getTimeOfMeasurement(), bloodSugar.getDateOfMeasurement());
-            createBloodSugarJoinEntry(userId, bloodSugarId);
-            bloodSugar.setBloodSugarId(bloodSugarId);
-            return bloodSugar;
+
+            if (!(createBloodSugarJoinEntry(userId, bloodSugarId))) {
+                throw new SQLException("Could not create blood sugar join entry.");
+            } else {
+                bloodSugar.setBloodSugarId(bloodSugarId);
+                return bloodSugar;
+            }
 
         } catch (SQLException e) {
             throw new SQLException("Could not create blood sugar reading.");

@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class JdbcBloodSugarDaoTests extends BaseDaoTests{
 
@@ -41,6 +42,12 @@ public class JdbcBloodSugarDaoTests extends BaseDaoTests{
         Assert.assertEquals(200, returnValue.getInputLevel());
         Assert.assertEquals("12:00", returnValue.getTimeOfMeasurement().toString());
         Assert.assertEquals("2022-12-24", returnValue.getDateOfMeasurement().toString());
+    }
+
+    @Test
+    public void get_blood_sugar_list_returns_list() throws SQLException {
+        List<BloodSugar> bloodSugarList = dao.getPreviousWeekBloodSugars(1);
+        Assert.assertEquals(3, bloodSugarList.size());
     }
 
 }
