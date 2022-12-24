@@ -1,15 +1,22 @@
 package com.techelevator.dao.jdbcdao;
 
+import com.techelevator.dao.dao.BloodSugarDao;
+import com.techelevator.model.pojos.BloodSugar;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JdbcBloodSugarDao {
+public class JdbcBloodSugarDao implements BloodSugarDao {
 
     private JdbcTemplate jdbcTemplate;
 
     public JdbcBloodSugarDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    @Override
+    public BloodSugar getBloodSugar(int userId) {
+        return null;
     }
 
     /*

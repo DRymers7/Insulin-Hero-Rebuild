@@ -1,4 +1,9 @@
 package com.techelevator.dao.dao;
 
-public class BloodSugarDao {
+import com.techelevator.model.pojos.BloodSugar;
+
+public interface BloodSugarDao {
+
+    BloodSugar getBloodSugar(int userId);
+
 }
