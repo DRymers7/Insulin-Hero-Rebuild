@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.SQLException;
 
-public class UserDataDaoTests extends BaseDaoTests {
+public class JdbcUserDataDaoTests extends BaseDaoTests {
 
     private UserDataDao dao;
 
