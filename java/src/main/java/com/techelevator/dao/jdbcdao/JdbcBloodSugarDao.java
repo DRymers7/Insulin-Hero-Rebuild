@@ -36,25 +36,6 @@ public class JdbcBloodSugarDao implements BloodSugarDao {
     }
 
     @Override
-    public List<BloodSugar> getPreviousWeekBloodSugars(int userId) throws SQLException {
-
-        List<BloodSugar> previousWeek = new ArrayList<>();
-
-        String sql = "SELECT bs.blood_sugar_id, input_level, time_last_measurement, date_last_measurement FROM blood_sugar bs " +
-                "JOIN blood_sugar_user_data_join bj ON bj.blood_sugar_id = bs.blood_sugar_id " +
-                "WHERE bj.user_id = ? AND bs.date_last_measurement > (select CURRENT_DATE - interval '1 week' as month_w_31_days);";
-
-        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, userId);
-        while (rowSet.next()) {
-            previousWeek.add(mapRowToBloodSugar(rowSet));
-        }
-        if (previousWeek.size() == 0) {
-            throw new SQLException("Could not find reading history.");
-        }
-        return previousWeek;
-    }
-
-    @Override
     public BloodSugar createBloodSugar(int userId, BloodSugar bloodSugar) throws SQLException {
 
         try {
@@ -78,6 +59,25 @@ public class JdbcBloodSugarDao implements BloodSugarDao {
         String sql = "INSERT INTO blood_sugar_user_data_join (blood_sugar_id, user_id) VALUES (?, ?);";
         int rowsAffected = jdbcTemplate.update(sql, bloodSugarId, userId);
         return rowsAffected == 1;
+    }
+
+    @Override
+    public List<BloodSugar> getPreviousWeekBloodSugars(int userId) throws SQLException {
+
+        List<BloodSugar> previousWeek = new ArrayList<>();
+
+        String sql = "SELECT bs.blood_sugar_id, input_level, time_last_measurement, date_last_measurement FROM blood_sugar bs " +
+                "JOIN blood_sugar_user_data_join bj ON bj.blood_sugar_id = bs.blood_sugar_id " +
+                "WHERE bj.user_id = ? AND bs.date_last_measurement > (select CURRENT_DATE - interval '1 week' as month_w_31_days);";
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, userId);
+        while (rowSet.next()) {
+            previousWeek.add(mapRowToBloodSugar(rowSet));
+        }
+        if (previousWeek.size() == 0) {
+            throw new SQLException("Could not find reading history.");
+        }
+        return previousWeek;
     }
 
     private BloodSugar mapRowToBloodSugar(SqlRowSet rowSet) {

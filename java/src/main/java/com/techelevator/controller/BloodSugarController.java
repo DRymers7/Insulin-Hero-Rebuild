@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -24,7 +25,7 @@ public class BloodSugarController {
         this.userDao = userDao;
     }
 
-    @GetMapping("/bloodsugar")
+    @GetMapping("/bloodsugars")
     public BloodSugar getBloodSugar(Principal principal) {
         try {
             int userId = userDao.findIdByUsername(principal.getName());
@@ -34,11 +35,21 @@ public class BloodSugarController {
         }
     }
 
-    @PostMapping("/bloodsugar")
+    @PostMapping("/bloodsugars")
     public BloodSugar createBloodSugar(@RequestBody BloodSugar bloodSugar, Principal principal) {
         try {
             int userId = userDao.findIdByUsername(principal.getName());
             return bloodSugarDao.createBloodSugar(userId, bloodSugar);
+        } catch (SQLException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/bloodsugars/history")
+    public List<BloodSugar> getPreviousWeekBloodSugars(Principal principal) {
+        try {
+            int userId = userDao.findIdByUsername(principal.getName());
+            return bloodSugarDao.getPreviousWeekBloodSugars(userId);
         } catch (SQLException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
