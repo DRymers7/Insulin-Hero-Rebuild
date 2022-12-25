@@ -46,7 +46,7 @@ public class JdbcBloodSugarDaoTests extends BaseDaoTests{
 
     @Test
     public void get_blood_sugar_list_returns_list() throws SQLException {
-        List<BloodSugar> bloodSugarList = dao.getPreviousWeekBloodSugars(1);
+        List<BloodSugar> bloodSugarList = dao.getThisWeekBloodSugars(1);
         Assert.assertEquals(3, bloodSugarList.size());
     }
 

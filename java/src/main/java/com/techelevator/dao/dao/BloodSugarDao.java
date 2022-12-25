@@ -9,5 +9,5 @@ public interface BloodSugarDao {
 
     BloodSugar getBloodSugar(int userId) throws SQLException;
     BloodSugar createBloodSugar(int userId, BloodSugar bloodSugar) throws SQLException;
-    List<BloodSugar> getPreviousWeekBloodSugars(int userId) throws SQLException;
+    List<BloodSugar> getThisWeekBloodSugars(int userId) throws SQLException;
 }

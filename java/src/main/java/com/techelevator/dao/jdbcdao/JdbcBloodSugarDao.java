@@ -62,7 +62,7 @@ public class JdbcBloodSugarDao implements BloodSugarDao {
     }
 
     @Override
-    public List<BloodSugar> getPreviousWeekBloodSugars(int userId) throws SQLException {
+    public List<BloodSugar> getThisWeekBloodSugars(int userId) throws SQLException {
 
         List<BloodSugar> previousWeek = new ArrayList<>();
 

@@ -49,7 +49,7 @@ public class BloodSugarController {
     public List<BloodSugar> getPreviousWeekBloodSugars(Principal principal) {
         try {
             int userId = userDao.findIdByUsername(principal.getName());
-            return bloodSugarDao.getPreviousWeekBloodSugars(userId);
+            return bloodSugarDao.getThisWeekBloodSugars(userId);
         } catch (SQLException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
