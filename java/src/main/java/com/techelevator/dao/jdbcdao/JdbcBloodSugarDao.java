@@ -64,11 +64,32 @@ public class JdbcBloodSugarDao implements BloodSugarDao {
     @Override
     public List<BloodSugar> getThisWeekBloodSugars(int userId) throws SQLException {
 
+        List<BloodSugar> thisWeek = new ArrayList<>();
+
+        String sql = "SELECT bs.blood_sugar_id, input_level, time_last_measurement, date_last_measurement FROM blood_sugar bs " +
+                "JOIN blood_sugar_user_data_join bj ON bj.blood_sugar_id = bs.blood_sugar_id " +
+                "WHERE bj.user_id = ? AND bs.date_last_measurement BETWEEN date_trunc('week', current_date)::date - 1 " +
+                "and date_trunc('week', current_date)::date + 6;";
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, userId);
+        while (rowSet.next()) {
+            thisWeek.add(mapRowToBloodSugar(rowSet));
+        }
+        if (thisWeek.size() == 0) {
+            throw new SQLException("Could not find reading history.");
+        }
+        return thisWeek;
+    }
+
+    @Override
+    public List<BloodSugar> getPreviousWeekBloodSugars(int userId) throws SQLException {
+
         List<BloodSugar> previousWeek = new ArrayList<>();
 
         String sql = "SELECT bs.blood_sugar_id, input_level, time_last_measurement, date_last_measurement FROM blood_sugar bs " +
                 "JOIN blood_sugar_user_data_join bj ON bj.blood_sugar_id = bs.blood_sugar_id " +
-                "WHERE bj.user_id = ? AND bs.date_last_measurement > (select CURRENT_DATE - interval '1 week' as month_w_31_days);";
+                "WHERE bj.user_id = ? AND bs.date_last_measurement >= NOW()::DATE-EXTRACT(DOW FROM NOW())::INTEGER-7 " +
+                "AND bs.date_last_measurement <  NOW()::DATE-EXTRACT(DOW from NOW())::INTEGER;";
 
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, userId);
         while (rowSet.next()) {

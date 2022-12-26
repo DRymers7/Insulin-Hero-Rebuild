@@ -26,10 +26,10 @@ public class JdbcBloodSugarDaoTests extends BaseDaoTests{
     @Test
     public void getBloodSugar_returns_blood_sugar() throws SQLException {
         BloodSugar bloodSugar = dao.getBloodSugar(1);
-        Assert.assertEquals(1, bloodSugar.getBloodSugarId());
+        Assert.assertEquals(2, bloodSugar.getBloodSugarId());
         Assert.assertEquals(100, bloodSugar.getInputLevel());
         Assert.assertEquals("12:00", bloodSugar.getTimeOfMeasurement().toString());
-        Assert.assertEquals("2022-12-24", bloodSugar.getDateOfMeasurement().toString());
+        Assert.assertEquals("2022-12-16", bloodSugar.getDateOfMeasurement().toString());
     }
 
     @Test
@@ -45,9 +45,15 @@ public class JdbcBloodSugarDaoTests extends BaseDaoTests{
     }
 
     @Test
-    public void get_blood_sugar_list_returns_list() throws SQLException {
+    public void get_this_weeek_blood_sugar_list_returns_list() throws SQLException {
         List<BloodSugar> bloodSugarList = dao.getThisWeekBloodSugars(1);
-        Assert.assertEquals(3, bloodSugarList.size());
+        Assert.assertEquals(4, bloodSugarList.size());
+    }
+
+    @Test
+    public void get_last_week_blood_sugar_list_returns_list() throws SQLException {
+        List<BloodSugar> bloodSugarList = dao.getPreviousWeekBloodSugars(1);
+        Assert.assertEquals(7, bloodSugarList.size());
     }
 
 }

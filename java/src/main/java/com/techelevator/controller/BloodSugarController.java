@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.UserDao;
 import com.techelevator.dao.dao.BloodSugarDao;
+import com.techelevator.helperclasses.BloodSugarHelper;
 import com.techelevator.model.pojos.BloodSugar;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -20,9 +22,12 @@ public class BloodSugarController {
     private BloodSugarDao bloodSugarDao;
     private UserDao userDao;
 
+    private BloodSugarHelper bloodSugarHelper;
+
     public BloodSugarController(BloodSugarDao bloodSugarDao, UserDao userDao) {
         this.bloodSugarDao = bloodSugarDao;
         this.userDao = userDao;
+        this.bloodSugarHelper = new BloodSugarHelper(bloodSugarDao);
     }
 
     @GetMapping("/bloodsugars")
@@ -46,10 +51,10 @@ public class BloodSugarController {
     }
 
     @GetMapping("/bloodsugars/history")
-    public List<BloodSugar> getPreviousWeekBloodSugars(Principal principal) {
+    public Map<String, List<BloodSugar>> getPreviousWeekBloodSugars(Principal principal) {
         try {
             int userId = userDao.findIdByUsername(principal.getName());
-            return bloodSugarDao.getThisWeekBloodSugars(userId);
+            return bloodSugarHelper.getBloodSugarHistory(userId);
         } catch (SQLException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
