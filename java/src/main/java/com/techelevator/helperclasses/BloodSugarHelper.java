@@ -18,8 +18,8 @@ public class BloodSugarHelper {
 
     public Map<String, List<BloodSugar>> getBloodSugarHistory(int userId) throws SQLException {
         Map<String, List<BloodSugar>> bloodSugarData = new HashMap<>();
-        bloodSugarData.put("thisWeek", bloodSugarDao.getThisWeekBloodSugars(userId));
-        bloodSugarData.put("previousWeek", bloodSugarDao.getPreviousWeekBloodSugars(userId));
+        bloodSugarData.put("thisWeek", getThisWeekBloodSugars(userId));
+        bloodSugarData.put("previousWeek", getLastWeekBloodSugars(userId));
         return bloodSugarData;
     }
 
