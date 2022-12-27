@@ -1,44 +1,76 @@
 package com.techelevator.model.pojos.nutritionapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.techelevator.model.ModelClasses.edamam.nutrientInfo.*;
+import com.techelevator.model.pojos.nutritionapi.*;
+import com.techelevator.model.pojos.nutritionapi.nutrientInfo.*;
 
 public class TotalNutrients {
     @JsonProperty("ENERC_KCAL")
     private ENERC_KCAL enerc_Kcal;
-//    private FAT fat;
-//    private FASAT fasat;
-//    private FAMS fams;
-//    private FAPU fapu;
-//    private CHOCDF chocdf;
+    @JsonProperty("FAT")
+    private FAT fat;
+    @JsonProperty("FASAT")
+    private FASAT fasat;
+    @JsonProperty("FATRN")
+    private FATRN fatrn;
+    @JsonProperty("FAMS")
+    private FAMS fams;
+    @JsonProperty("FAPU")
+    private FAPU fapu;
     @JsonProperty("CHOCDF")
+    private CHOCDF chocdf;
+    @JsonProperty("CHOCDF.net")
     private CHOCDFNet chocdfNet;
     @JsonProperty("FIBTG")
     private FIBTG fibtg;
-//    private SUGAR sugar;
-//    private PROCNT procnt;
-//    private CHOLE chole;
-//    private NA na;
-//    private CA ca;
-//    private MG mg;
-//    private K k;
-//    private FE fe;
-//    private ZN zn;
-//    private P p;
-//    private VITARae vitaRae;
-//    private VITc viTc;
-//    private THIA thia;
-//    private RIBF ribf;
-//    private NIA nia;
-//    private VITB6A vitb6A;
-//    private FOLDFE foldfe;
-//    private FOLFD folfd;
-//    private FOLAC folac;
-//    private VITB12 vitb12;
-//    private VITD vitd;
-//    private TOPCHA topcha;
-//    private VITK1 vitk1;
-//    private WATER water;
+    @JsonProperty("SUGAR")
+    private SUGAR sugar;
+    @JsonProperty("SUGAR.added")
+    private addedSugar addedSugar;
+    @JsonProperty("PROCNT")
+    private PROCNT procnt;
+    @JsonProperty("CHOLE")
+    private CHOLE chole;
+    @JsonProperty("NA")
+    private NA na;
+    @JsonProperty("CA")
+    private CA ca;
+    @JsonProperty("MG")
+    private MG mg;
+    @JsonProperty("K")
+    private K k;
+    @JsonProperty("FE")
+    private FE fe;
+    @JsonProperty("ZN")
+    private ZN zn;
+    @JsonProperty("P")
+    private P p;
+    @JsonProperty("VITARAE")
+    private VITARae vitaRae;
+    @JsonProperty("VITC")
+    private VITc viTc;
+    @JsonProperty("THIA")
+    private THIA thia;
+    @JsonProperty("RIBF")
+    private RIBF ribf;
+    @JsonProperty("NIA")
+    private NIA nia;
+    @JsonProperty("VITB6A")
+    private VITB6A vitb6A;
+    @JsonProperty("FOLDFE")
+    private FOLDFE foldfe;
+    @JsonProperty("VITB12")
+    private FOLFD folfd;
+    @JsonProperty("VITD")
+    private FOLAC folac;
+    @JsonProperty("TOPCHA")
+    private VITB12 vitb12;
+    @JsonProperty("VITK1")
+    private VITD vitd;
+    @JsonProperty("WATER")
+    private TOPCHA topcha;
+    private VITK1 vitk1;
+    private WATER water;
 
     public TotalNutrients() {};
 
