@@ -1,10 +1,11 @@
 package com.techelevator.model.pojos.nutritionapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.techelevator.model.ModelClasses.edamam.nutrientInfo.CHOCDF_KCAL;
-import com.techelevator.model.ModelClasses.edamam.nutrientInfo.ENERC_KCAL;
-import com.techelevator.model.ModelClasses.edamam.nutrientInfo.FAT_KCAL;
-import com.techelevator.model.ModelClasses.edamam.nutrientInfo.PROCNT_KCAL;
+import com.techelevator.model.pojos.nutritionapi.nutrientInfo.CHOCDF_KCAL;
+import com.techelevator.model.pojos.nutritionapi.nutrientInfo.ENERC_KCAL;
+import com.techelevator.model.pojos.nutritionapi.nutrientInfo.FAT_KCAL;
+import com.techelevator.model.pojos.nutritionapi.nutrientInfo.PROCNT_KCAL;
+
 
 import java.util.Objects;
 
