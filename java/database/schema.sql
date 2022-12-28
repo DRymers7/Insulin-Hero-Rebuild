@@ -139,7 +139,8 @@ CREATE TABLE meals (
 	
 meal_id int DEFAULT nextval('seq_meal_id'::regclass) NOT NULL unique,
 serving_size decimal(3,2),
-food varchar (32),
+unit_of_measure varchar(16),
+food_name varchar (32),
 time_of_meal TIME DEFAULT CURRENT_TIME,
 date_of_meal DATE DEFAULT CURRENT_DATE
 );

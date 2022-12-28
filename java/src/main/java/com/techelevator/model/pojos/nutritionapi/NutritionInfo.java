@@ -23,6 +23,8 @@ public class NutritionInfo {
     private TotalNutrients totalNutrients;
     @JsonProperty("totalDaily")
     private TotalDaily totalDaily;
+    @JsonProperty("ingredients")
+    private Ingredients[] ingredients;
     @JsonProperty("totalNutrientsKCal")
     private TotalNutrientsKCal totalNutrientsKCal;
 
@@ -92,43 +94,19 @@ public class NutritionInfo {
         this.totalDaily = totalDaily;
     }
 
+    public Ingredients[] getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Ingredients[] ingredients) {
+        this.ingredients = ingredients;
+    }
+
     public TotalNutrientsKCal getTotalNutrientsKCal() {
         return totalNutrientsKCal;
     }
 
     public void setTotalNutrientsKCal(TotalNutrientsKCal totalNutrientsKCal) {
         this.totalNutrientsKCal = totalNutrientsKCal;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NutritionInfo that = (NutritionInfo) o;
-        return calories == that.calories && Double.compare(that.totalWeight, totalWeight) == 0 && Objects.equals(uri, that.uri) && Arrays.equals(dietLabels, that.dietLabels) && Arrays.equals(healthLabels, that.healthLabels) && Arrays.equals(cautions, that.cautions) && Objects.equals(totalNutrients, that.totalNutrients) && Objects.equals(totalDaily, that.totalDaily) && Objects.equals(totalNutrientsKCal, that.totalNutrientsKCal);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(uri, calories, totalWeight, totalNutrients, totalDaily, totalNutrientsKCal);
-        result = 31 * result + Arrays.hashCode(dietLabels);
-        result = 31 * result + Arrays.hashCode(healthLabels);
-        result = 31 * result + Arrays.hashCode(cautions);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "NutritionInfo{" +
-                "uri='" + uri + '\'' +
-                ", calories=" + calories +
-                ", totalWeight=" + totalWeight +
-                ", dietLabels=" + Arrays.toString(dietLabels) +
-                ", healthLabels=" + Arrays.toString(healthLabels) +
-                ", cautions=" + Arrays.toString(cautions) +
-                ", totalNutrients=" + totalNutrients +
-                ", totalDaily=" + totalDaily +
-                ", totalNutrientsKCal=" + totalNutrientsKCal +
-                '}';
     }
 }
