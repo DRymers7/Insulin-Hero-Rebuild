@@ -20,6 +20,9 @@ public class NutritionApiHelper {
         this.mealDao = mealDao;
     }
 
+    //1. Call edamam get nutri info
+    // 2. call spoonacular and get glycemic load for
+
     public Meal handleUserMealCreation(int userId, Meal meal) throws SQLException, ResponseStatusException {
         NutritionInfo nutritionInfo = getNutritionInfoFromApi(meal.getFoodName());
         setMealServingSize(meal, nutritionInfo);
