@@ -8,6 +8,6 @@ import java.sql.SQLException;
 public interface MealDao {
 
     int createNewMeal(int userId, Meal meal) throws SQLException;
-    void saveMealInformation(int mealId, TotalNutrients totalNutrients) throws SQLException;
+    void saveMealInformation(int mealId, TotalNutrients totalNutrients, Meal meal) throws SQLException;
 
 }

@@ -26,7 +26,7 @@ public class NutritionApiHelper {
         preprocessMealObject(meal);
         int mealId = createUserMeal(userId, meal);
 
-
+        return null;
     }
 
     private NutritionInfo getNutritionInfoFromApi(String query) throws ResponseStatusException {

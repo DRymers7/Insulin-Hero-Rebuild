@@ -148,7 +148,7 @@ date_of_meal DATE DEFAULT CURRENT_DATE
 CREATE TABLE meal_information (
 	
 meal_id int NOT NULL PRIMARY KEY,
-glycemic_index decimal(3,2), --FDA API,
+glycemic_load decimal(3,2), --FDA API,
 calories_g decimal(5,2),
 total_fats_g decimal(5,2),
 saturated_fats_g decimal(5,2),

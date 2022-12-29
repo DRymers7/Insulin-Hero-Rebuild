@@ -47,13 +47,22 @@ public class JdbcMealDao implements MealDao {
     }
 
     @Override
-    public void saveMealInformation(int mealId, TotalNutrients totalNutrients) throws SQLException {
+    public void saveMealInformation(int mealId, TotalNutrients totalNutrients, Meal meal) throws SQLException {
 
-        String sql = "";
+
+
+        String sql = "INSERT INTO public.meal_information( " +
+                "meal_id, glycemic_load, calories_g, total_fats_g, saturated_fats_g, trans_fats_g, fatty_acids_monosaturated_g, fatty_acids_polyunsaturated_g, " +
+                "carbs_by_difference_g, total_carbs_g, fiber_g, sugars_g, added_sugars_g, protein_g, cholesterol_mg, sodium_mg, calcium_mg, magnesium_mg, potassium_mg, " +
+                "iron_mg, zinc_mg, phosphorous_mg, vit_a_rae_micg, vit_c_mg, thiamin_mg, riboflavin_mg, niacin_mg, vit_b6_mg, folate_dfe_micg, folate_food_micg, folic_acid_micg, " +
+                "vit_b12_micg, vit_d_micg, vit_e_micg, vit_k_micg, water_g) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+
 
     }
 
-    private double calculateGlycemicIndex() {
+    private double calculateGlycemicLoad(TotalNutrients totalNutrients, Meal meal) {
         return 0;
     }
 
