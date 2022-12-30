@@ -86,8 +86,7 @@ _Areas for improvement_
 
 
 ## Acknowledgements
-Give credit here.
-- This project was inspired by my capstone at Tech Elevator. A sincere thank you to all of the mentors, colleagues, friends and family that have helped me along my software development journey to date.
+This project was inspired by my capstone at Tech Elevator. A sincere thank you to all of the mentors, colleagues, friends and family that have helped me along my software development journey to date.
 <!-- This project was based on [this tutorial](https://www.example.com). -->
 
 
