@@ -1,5 +1,5 @@
 # Insulin Hero (Rebuild)
-> *This project is a diabetic aid application, designed to help users better keep track of and manage their diabetes as either a type 1, type 2 or prediabetic individual. *
+> This project is a diabetic aid application, designed to help users better keep track of and manage their diabetes as either a type 1, type 2 or prediabetic individual. *
 *The motivation for creating this project is to rebuild and improve upon my capstone project from Tech Elevator, as well as produce an open source solution designed to help people suffering from this particular affliction. I wish to implement features that have been well researched, helpful, and directly requested by people in my life who have diabetes or are prediabetic.*
 <!-- > Live demo [_here_](https://www.example.com).  If you have the project hosted somewhere, include the link here. -->
 
