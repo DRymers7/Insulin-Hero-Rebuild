@@ -3,8 +3,6 @@ package com.techelevator.model.pojos.nutritionapi;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techelevator.model.pojos.nutritionapi.nutrientInfo.Parsed;
 
-import java.util.List;
-
 public class Ingredients {
 
     @JsonProperty("text")

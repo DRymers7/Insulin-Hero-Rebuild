@@ -10,9 +10,13 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class NutritionApiHelper {
 
+    private final ExecutorService executorService = Executors.newFixedThreadPool(3);
     private NutritionService nutritionService = new NutritionService("https://api.edamam.com/api/nutrition-data");
     private MealDao mealDao;
 
@@ -23,8 +27,28 @@ public class NutritionApiHelper {
     //1. Call edamam get nutri info
     // 2. call spoonacular and get glycemic load for
 
+    public void runOperations(String searchQuery) {
+
+    }
+
+    private Future<NutritionInfo> getNutritionDataFromApi(String foodName) {
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     public Meal handleUserMealCreation(int userId, Meal meal) throws SQLException, ResponseStatusException {
         NutritionInfo nutritionInfo = getNutritionInfoFromApi(meal.getFoodName());
+        System.out.println("Placeholder for spoonacular call");
         setMealServingSize(meal, nutritionInfo);
         preprocessMealObject(meal);
         int mealId = createUserMeal(userId, meal);
@@ -38,12 +62,10 @@ public class NutritionApiHelper {
 
     private void setMealServingSize(Meal meal, NutritionInfo nutritionInfo) {
 
-        Arrays.stream(nutritionInfo.getIngredients()).forEach(ingredients -> {
-            Arrays.stream(ingredients.getParsed()).sequential().forEach(element -> {
-                meal.setServingSize(element.getQuantity());
-                meal.setUnitOfMeasure(element.getMeasure());
-            });
-        });
+        Arrays.stream(nutritionInfo.getIngredients()).forEach(ingredients -> Arrays.stream(ingredients.getParsed()).sequential().forEach(element -> {
+            meal.setServingSize(element.getQuantity());
+            meal.setUnitOfMeasure(element.getMeasure());
+        }));
 
     }
 
