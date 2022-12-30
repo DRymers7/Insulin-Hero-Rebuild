@@ -27,12 +27,17 @@ public class NutritionApiHelper {
     //1. Call edamam get nutri info
     // 2. call spoonacular and get glycemic load for
 
-    public void runOperations(String searchQuery) {
+//    public void runOperations(String searchQuery) throws ResponseStatusException {
+//        executorService.submit(new NutritionServiceRunnable(searchQuery));
+//    }
+//
+//    private NutritionInfo getNutritionDataFromApi(String foodName) throws Exception {
+//        return null;
+//    }
 
-    }
+    public void testMethod() throws Exception {
 
-    private Future<NutritionInfo> getNutritionDataFromApi(String foodName) {
-        return null;
+        List<Future<>>
     }
 
 
@@ -57,7 +62,7 @@ public class NutritionApiHelper {
     }
 
     private NutritionInfo getNutritionInfoFromApi(String query) throws ResponseStatusException {
-        return nutritionService.getNutritionalInformation(query);
+        return null;
     }
 
     private void setMealServingSize(Meal meal, NutritionInfo nutritionInfo) {
