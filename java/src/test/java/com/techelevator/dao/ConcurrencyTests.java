@@ -1,24 +1,28 @@
 package com.techelevator.dao;
 
+import com.techelevator.dao.dao.MealDao;
+import com.techelevator.dao.jdbcdao.JdbcBloodSugarDao;
+import com.techelevator.dao.jdbcdao.JdbcMealDao;
 import com.techelevator.helperclasses.NutritionApiHelper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ConcurrencyTests {
+public class ConcurrencyTests extends BaseDaoTests {
 
-    NutritionApiHelper helper;
+    private NutritionApiHelper helper;
+    private MealDao dao;
 
     @Before
     public void setup() {
-        this.helper = new NutritionApiHelper();
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        dao = new JdbcMealDao(jdbcTemplate);
+        this.helper = new NutritionApiHelper(dao);
     }
 
     @Test
@@ -76,5 +80,44 @@ public class ConcurrencyTests {
                 .collect(Collectors.joining(" "));
 
         Assert.assertEquals("Hello Beautiful World", combined);
+    }
+
+    @Test
+    public void test_to_use_isDone() throws InterruptedException, ExecutionException {
+        MyCallable callable1 = new MyCallable(1000);
+        MyCallable callable2 = new MyCallable(2000);
+
+        FutureTask<String> futureTask1 = new FutureTask<String>(callable1);
+        FutureTask<String> futureTask2 = new FutureTask<String>(callable2);
+
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.execute(futureTask1);
+        executorService.execute(futureTask2);
+
+        while (true) {
+            try {
+                if(futureTask1.isDone() && futureTask2.isDone()){
+                    System.out.println("Done");
+                    //shut down executor service
+                    executorService.shutdown();
+                    return;
+                }
+
+                if(!futureTask1.isDone()){
+                    //wait indefinitely for future task to complete
+                    System.out.println("FutureTask1 output="+futureTask1.get());
+                }
+
+                System.out.println("Waiting for FutureTask2 to complete");
+                String s = futureTask2.get(200L, TimeUnit.MILLISECONDS);
+                if(s !=null){
+                    System.out.println("FutureTask2 output="+s);
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            } catch (TimeoutException e) {
+                System.out.println("TIMEOUT");;
+            }
+        }
     }
 }

@@ -16,6 +16,12 @@ import java.util.concurrent.*;
 
 public class NutritionApiHelper {
 
+    private MealDao mealDao;
+
+    public NutritionApiHelper(MealDao mealDao) {
+        this.mealDao = mealDao;
+    }
+
 
 
 

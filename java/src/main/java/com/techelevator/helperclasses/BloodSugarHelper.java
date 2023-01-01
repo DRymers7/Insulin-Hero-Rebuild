@@ -31,4 +31,8 @@ public class BloodSugarHelper {
         return bloodSugarDao.getPreviousWeekBloodSugars(userId);
     }
 
+    public Map<String, BloodSugar> getUserBloodSugarHistory(int userId) throws SQLException {
+        return null;
+    }
+
 }
