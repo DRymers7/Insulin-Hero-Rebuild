@@ -3,6 +3,8 @@ package com.techelevator.dao;
 import com.techelevator.dao.dao.MealDao;
 import com.techelevator.dao.jdbcdao.JdbcMealDao;
 import com.techelevator.helperclasses.NutritionApiHelper;
+import com.techelevator.model.pojos.glycemicloadapi.recipeanalysis.IngredientAnalysis;
+import com.techelevator.model.pojos.nutritionapi.wrappers.NutritionInfo;
 import com.techelevator.services.GLLookupService;
 import com.techelevator.services.NutritionLookupService;
 import org.junit.Assert;
@@ -10,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
@@ -127,8 +130,21 @@ public class ConcurrencyTests extends BaseDaoTests {
     }
 
     @Test
-    public void test_one_for_nutrition_helper_async() {
+    public void test_one_for_nutrition_helper_async() throws InterruptedException, ExecutionException {
 
+        String query1 = "Shrimp scampi";
+        String query2 = "Fried chicken and mac and cheese";
+
+        long start = System.currentTimeMillis();
+
+        CompletableFuture<NutritionInfo> call1 = helper.getNutritionInfo(query1);
+        CompletableFuture<NutritionInfo> call2 = helper.getNutritionInfo(query2);
+
+        CompletableFuture.allOf(call1, call2).join();
+
+        System.out.println("Elapsed time: " + (System.currentTimeMillis() - start));
+        System.out.println("--> " + call1.get());
+        System.out.println("--> " + call2.get());
     }
 
 }
