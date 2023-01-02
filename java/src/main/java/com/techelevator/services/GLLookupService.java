@@ -28,8 +28,9 @@ public class GLLookupService {
     public CompletableFuture<IngredientAnalysis> getQueryIngredients(String query) throws InterruptedException, ExecutionException {
         try {
             logger.info("Making query analysis request for: " + query);
-            String url = baseApiUrl + "/";
-            return null;
+            String url = baseApiUrl + "/recipes/queries/analyze" + "?apiKey=" + API_KEY + "&q=" + query;
+            IngredientAnalysis results = restTemplate.getForObject(url, IngredientAnalysis.class);
+            return CompletableFuture.completedFuture(results);
         } catch (ResponseStatusException e) {
             throw new ExecutionException(e.getReason(), e);
         }
