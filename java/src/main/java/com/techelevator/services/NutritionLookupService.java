@@ -30,7 +30,7 @@ public class NutritionLookupService {
     @Async
     public CompletableFuture<NutritionInfo> findNutritionInfo(String searchQuery) throws InterruptedException, ExecutionException {
         try {
-            logger.info("Making request for: " + searchQuery);
+            logger.info("Making nutrition info request for: " + searchQuery);
             String url = baseApiUrl + "?app_id=" + appId + "&app_key=" + PUBLIC_KEY + "&nutrition-type=" + nutritionType + "&ingr=" + searchQuery + "&If-None-Match";
             NutritionInfo results = restTemplate.getForObject(url, NutritionInfo.class);
             return CompletableFuture.completedFuture(results);

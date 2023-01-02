@@ -1,10 +1,16 @@
 package com.techelevator.services;
 
+import com.techelevator.model.pojos.glycemicloadapi.recipeanalysis.IngredientAnalysis;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class GLLookupService {
@@ -18,7 +24,16 @@ public class GLLookupService {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-
+    @Async
+    public CompletableFuture<IngredientAnalysis> getQueryIngredients(String query) throws InterruptedException, ExecutionException {
+        try {
+            logger.info("Making query analysis request for: " + query);
+            String url = baseApiUrl + "/";
+            return null;
+        } catch (ResponseStatusException e) {
+            throw new ExecutionException(e.getReason(), e);
+        }
+    }
 
 
 }
