@@ -1,4 +1,4 @@
-package com.techelevator;
+package com.techelevator.exceptions;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 
