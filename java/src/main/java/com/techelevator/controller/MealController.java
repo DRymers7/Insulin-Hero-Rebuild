@@ -16,10 +16,10 @@ public class MealController {
     private UserDao userDao;
     private NutritionApiHelper nutritionApiHelper;
 
-    public MealController(MealDao mealDao, UserDao userDao) {
+    public MealController(MealDao mealDao, UserDao userDao, NutritionApiHelper nutritionApiHelper) {
         this.mealDao = mealDao;
         this.userDao = userDao;
-        this.nutritionApiHelper = new NutritionApiHelper(mealDao);
+        this.nutritionApiHelper = nutritionApiHelper;
     }
 
 

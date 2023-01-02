@@ -2,7 +2,7 @@ package com.techelevator.dao.jdbcdao;
 
 import com.techelevator.dao.dao.MealDao;
 import com.techelevator.model.pojos.Meal;
-import com.techelevator.model.pojos.nutritionapi.TotalNutrients;
+import com.techelevator.model.pojos.nutritionapi.wrappers.TotalNutrients;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 

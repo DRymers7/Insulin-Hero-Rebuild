@@ -1,7 +1,7 @@
 package com.techelevator.dao.dao;
 
 import com.techelevator.model.pojos.Meal;
-import com.techelevator.model.pojos.nutritionapi.TotalNutrients;
+import com.techelevator.model.pojos.nutritionapi.wrappers.TotalNutrients;
 
 import java.sql.SQLException;
 

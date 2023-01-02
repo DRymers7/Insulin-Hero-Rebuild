@@ -1,9 +1,8 @@
-package com.techelevator.model.pojos.nutritionapi;
+package com.techelevator.model.pojos.nutritionapi.wrappers;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class NutritionInfo {
 
@@ -108,5 +107,21 @@ public class NutritionInfo {
 
     public void setTotalNutrientsKCal(TotalNutrientsKCal totalNutrientsKCal) {
         this.totalNutrientsKCal = totalNutrientsKCal;
+    }
+
+    @Override
+    public String toString() {
+        return "NutritionInfo{" +
+                "uri='" + uri + '\'' +
+                ", calories=" + calories +
+                ", totalWeight=" + totalWeight +
+                ", dietLabels=" + Arrays.toString(dietLabels) +
+                ", healthLabels=" + Arrays.toString(healthLabels) +
+                ", cautions=" + Arrays.toString(cautions) +
+                ", totalNutrients=" + totalNutrients +
+                ", totalDaily=" + totalDaily +
+                ", ingredients=" + Arrays.toString(ingredients) +
+                ", totalNutrientsKCal=" + totalNutrientsKCal +
+                '}';
     }
 }

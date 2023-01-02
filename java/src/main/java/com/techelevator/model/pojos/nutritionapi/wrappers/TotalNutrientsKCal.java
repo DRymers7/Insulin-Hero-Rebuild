@@ -1,4 +1,4 @@
-package com.techelevator.model.pojos.nutritionapi;
+package com.techelevator.model.pojos.nutritionapi.wrappers;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techelevator.model.pojos.nutritionapi.nutrientInfo.CHOCDF_KCAL;

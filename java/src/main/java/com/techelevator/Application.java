@@ -18,12 +18,12 @@ public class Application implements AsyncConfigurer {
         SpringApplication.run(Application.class, args);
     }
 
-    @Override
-    @Bean(name = "CICSEnabledTaskExecutor")
-    public Executor getAsyncExecutor()
-    {
-        return new DefaultManagedTaskExecutor();
-    }
+//    @Override
+//    @Bean(name = "CICSEnabledTaskExecutor")
+//    public Executor getAsyncExecutor()
+//    {
+//        return new DefaultManagedTaskExecutor();
+//    }
 
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler()

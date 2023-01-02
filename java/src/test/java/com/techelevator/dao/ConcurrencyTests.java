@@ -1,7 +1,6 @@
 package com.techelevator.dao;
 
 import com.techelevator.dao.dao.MealDao;
-import com.techelevator.dao.jdbcdao.JdbcBloodSugarDao;
 import com.techelevator.dao.jdbcdao.JdbcMealDao;
 import com.techelevator.helperclasses.NutritionApiHelper;
 import org.junit.Assert;
@@ -22,7 +21,7 @@ public class ConcurrencyTests extends BaseDaoTests {
     public void setup() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         dao = new JdbcMealDao(jdbcTemplate);
-        this.helper = new NutritionApiHelper(dao);
+        this.helper = new NutritionApiHelper(nutritionLookupService, dao);
     }
 
     @Test

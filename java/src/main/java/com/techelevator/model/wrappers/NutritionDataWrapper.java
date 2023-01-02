@@ -1,8 +1,8 @@
 package com.techelevator.model.wrappers;
 
-import com.techelevator.model.pojos.glycemicloadapi.GlycemicLoadData;
-import com.techelevator.model.pojos.glycemicloadapi.IngredientAnalysis;
-import com.techelevator.model.pojos.nutritionapi.NutritionInfo;
+import com.techelevator.model.pojos.glycemicloadapi.glcalculation.GlycemicLoadData;
+import com.techelevator.model.pojos.glycemicloadapi.recipeanalysis.IngredientAnalysis;
+import com.techelevator.model.pojos.nutritionapi.wrappers.NutritionInfo;
 
 public class NutritionDataWrapper {
 

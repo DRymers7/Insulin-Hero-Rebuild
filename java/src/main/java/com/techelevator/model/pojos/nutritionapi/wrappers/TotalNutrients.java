@@ -1,20 +1,31 @@
-package com.techelevator.model.pojos.nutritionapi;
+package com.techelevator.model.pojos.nutritionapi.wrappers;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techelevator.model.pojos.nutritionapi.nutrientInfo.*;
 
-public class TotalDaily {
-
+public class TotalNutrients {
     @JsonProperty("ENERC_KCAL")
-    private ENERC_KCAL enerc_kcal;
+    private ENERC_KCAL enerc_Kcal;
     @JsonProperty("FAT")
     private FAT fat;
     @JsonProperty("FASAT")
     private FASAT fasat;
+    @JsonProperty("FATRN")
+    private FATRN fatrn;
+    @JsonProperty("FAMS")
+    private FAMS fams;
+    @JsonProperty("FAPU")
+    private FAPU fapu;
     @JsonProperty("CHOCDF")
     private CHOCDF chocdf;
+    @JsonProperty("CHOCDF.net")
+    private CHOCDFNet chocdfNet;
     @JsonProperty("FIBTG")
     private FIBTG fibtg;
+    @JsonProperty("SUGAR")
+    private SUGAR sugar;
+    @JsonProperty("SUGAR.added")
+    private addedSugar addedSugar;
     @JsonProperty("PROCNT")
     private PROCNT procnt;
     @JsonProperty("CHOLE")
@@ -33,7 +44,7 @@ public class TotalDaily {
     private ZN zn;
     @JsonProperty("P")
     private P p;
-    @JsonProperty("VITARAE")
+    @JsonProperty("VITA_RAE")
     private VITARae vitaRae;
     @JsonProperty("VITC")
     private VITc viTc;
@@ -47,6 +58,8 @@ public class TotalDaily {
     private VITB6A vitb6A;
     @JsonProperty("FOLDFE")
     private FOLDFE foldfe;
+    @JsonProperty("FOLFD")
+    private FOLFD folfd;
     @JsonProperty("VITB12")
     private VITB12 vitb12;
     @JsonProperty("VITD")
@@ -55,15 +68,17 @@ public class TotalDaily {
     private TOPCHA topcha;
     @JsonProperty("VITK1")
     private VITK1 vitk1;
+    @JsonProperty("WATER")
+    private WATER water;
 
-    public TotalDaily() {};
+    public TotalNutrients() {};
 
-    public ENERC_KCAL getEnerc_kcal() {
-        return enerc_kcal;
+    public ENERC_KCAL getEnerc_Kcal() {
+        return enerc_Kcal;
     }
 
-    public void setEnerc_kcal(ENERC_KCAL enerc_kcal) {
-        this.enerc_kcal = enerc_kcal;
+    public void setEnerc_Kcal(ENERC_KCAL enerc_Kcal) {
+        this.enerc_Kcal = enerc_Kcal;
     }
 
     public FAT getFat() {
@@ -82,6 +97,30 @@ public class TotalDaily {
         this.fasat = fasat;
     }
 
+    public FATRN getFatrn() {
+        return fatrn;
+    }
+
+    public void setFatrn(FATRN fatrn) {
+        this.fatrn = fatrn;
+    }
+
+    public FAMS getFams() {
+        return fams;
+    }
+
+    public void setFams(FAMS fams) {
+        this.fams = fams;
+    }
+
+    public FAPU getFapu() {
+        return fapu;
+    }
+
+    public void setFapu(FAPU fapu) {
+        this.fapu = fapu;
+    }
+
     public CHOCDF getChocdf() {
         return chocdf;
     }
@@ -90,12 +129,36 @@ public class TotalDaily {
         this.chocdf = chocdf;
     }
 
+    public CHOCDFNet getChocdfNet() {
+        return chocdfNet;
+    }
+
+    public void setChocdfNet(CHOCDFNet chocdfNet) {
+        this.chocdfNet = chocdfNet;
+    }
+
     public FIBTG getFibtg() {
         return fibtg;
     }
 
     public void setFibtg(FIBTG fibtg) {
         this.fibtg = fibtg;
+    }
+
+    public SUGAR getSugar() {
+        return sugar;
+    }
+
+    public void setSugar(SUGAR sugar) {
+        this.sugar = sugar;
+    }
+
+    public com.techelevator.model.pojos.nutritionapi.nutrientInfo.addedSugar getAddedSugar() {
+        return addedSugar;
+    }
+
+    public void setAddedSugar(com.techelevator.model.pojos.nutritionapi.nutrientInfo.addedSugar addedSugar) {
+        this.addedSugar = addedSugar;
     }
 
     public PROCNT getProcnt() {
@@ -226,6 +289,14 @@ public class TotalDaily {
         this.foldfe = foldfe;
     }
 
+    public FOLFD getFolfd() {
+        return folfd;
+    }
+
+    public void setFolfd(FOLFD folfd) {
+        this.folfd = folfd;
+    }
+
     public VITB12 getVitb12() {
         return vitb12;
     }
@@ -256,5 +327,13 @@ public class TotalDaily {
 
     public void setVitk1(VITK1 vitk1) {
         this.vitk1 = vitk1;
+    }
+
+    public WATER getWater() {
+        return water;
+    }
+
+    public void setWater(WATER water) {
+        this.water = water;
     }
 }

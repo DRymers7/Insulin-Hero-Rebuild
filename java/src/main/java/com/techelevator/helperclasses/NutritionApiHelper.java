@@ -1,24 +1,21 @@
 package com.techelevator.helperclasses;
 
 import com.techelevator.dao.dao.MealDao;
-import com.techelevator.model.pojos.Meal;
-import com.techelevator.model.pojos.nutritionapi.NutritionInfo;
+import com.techelevator.services.NutritionLookupService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import org.springframework.web.server.ResponseStatusException;
-
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.*;
-
+@Component
 public class NutritionApiHelper {
 
+    private static final Logger logger = LoggerFactory.getLogger(NutritionApiHelper.class);
+    private final NutritionLookupService nutritionLookupService;
     private MealDao mealDao;
 
-    public NutritionApiHelper(MealDao mealDao) {
+    public NutritionApiHelper(NutritionLookupService nutritionLookupService, MealDao mealDao) {
+        this.nutritionLookupService = nutritionLookupService;
         this.mealDao = mealDao;
     }
 
