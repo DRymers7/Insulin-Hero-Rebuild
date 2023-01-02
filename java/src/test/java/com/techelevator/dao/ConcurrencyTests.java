@@ -3,7 +3,7 @@ package com.techelevator.dao;
 import com.techelevator.dao.dao.MealDao;
 import com.techelevator.dao.jdbcdao.JdbcMealDao;
 import com.techelevator.helperclasses.NutritionApiHelper;
-import com.techelevator.model.pojos.glycemicloadapi.recipeanalysis.IngredientAnalysis;
+
 import com.techelevator.model.pojos.nutritionapi.wrappers.NutritionInfo;
 import com.techelevator.services.GLLookupService;
 import com.techelevator.services.NutritionLookupService;
@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
