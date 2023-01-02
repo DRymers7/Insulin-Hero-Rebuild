@@ -11,12 +11,6 @@ public class NutritionApiHelperTests extends BaseDaoTests {
     private NutritionApiHelper nutritionApiHelper;
     private MealDao mealDao;
 
-    @Before
-    public void setup() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        mealDao = new JdbcMealDao(jdbcTemplate);
-        this.nutritionApiHelper = new NutritionApiHelper();
-    }
 
 
 
