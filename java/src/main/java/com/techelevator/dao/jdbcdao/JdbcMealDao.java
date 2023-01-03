@@ -4,9 +4,12 @@ import com.techelevator.dao.dao.MealDao;
 import com.techelevator.model.pojos.Meal;
 import com.techelevator.model.pojos.nutritionapi.wrappers.TotalNutrients;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class JdbcMealDao implements MealDao {
@@ -15,6 +18,26 @@ public class JdbcMealDao implements MealDao {
 
     public JdbcMealDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    @Override
+    public List<Meal> getUserOneDayMeals(int userId) {
+
+            List<Meal> dailyMeals = new ArrayList<>();
+
+            String sql = "SELECT m.meal_id, serving_size, unit_of_measure, food_name, time_of_meal, date_of_meal " +
+                    "FROM meals m " +
+                    "JOIN meals_user_join mj ON m.meal_id = mj.meal_id " +
+                    "JOIN user_data ud ON ud.user_id = mj.user_id " +
+                    "WHERE ud.user_id = ? AND m.date_of_meal = date_trunc('day', current_date)";
+
+            SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, userId);
+
+            while (rowSet.next()) {
+                dailyMeals.add(mapRowToMealObject(rowSet));
+            }
+            return dailyMeals;
+
     }
 
     @Override
@@ -62,8 +85,15 @@ public class JdbcMealDao implements MealDao {
 
     }
 
-    private double calculateGlycemicLoad(TotalNutrients totalNutrients, Meal meal) {
-        return 0;
+    private Meal mapRowToMealObject(SqlRowSet rowSet) {
+        Meal meal = new Meal();
+        meal.setMealId(rowSet.getInt("meal_id"));
+        meal.setServingSize(rowSet.getDouble("serving_size"));
+        meal.setUnitOfMeasure(rowSet.getString("unit_of_measure"));
+        meal.setFoodName(rowSet.getString("food_name"));
+        meal.setTimeOfMeal(rowSet.getTime("time_of_meal").toLocalTime());
+        meal.setDateOfMeal(rowSet.getDate("date_of_meal").toLocalDate());
+        return meal;
     }
 
 

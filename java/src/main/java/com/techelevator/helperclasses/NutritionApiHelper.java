@@ -1,6 +1,7 @@
 package com.techelevator.helperclasses;
 
 import com.techelevator.dao.dao.MealDao;
+import com.techelevator.model.pojos.Meal;
 import com.techelevator.model.pojos.glycemicloadapi.recipeanalysis.IngredientAnalysis;
 import com.techelevator.model.pojos.nutritionapi.wrappers.NutritionInfo;
 import com.techelevator.services.GLLookupService;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -27,13 +29,14 @@ public class NutritionApiHelper {
         this.mealDao = mealDao;
     }
 
-
+    public List<Meal> handleMealCreationAndNutritionData(String query, int userId) {
+        return null;
+    }
 
 
 
     public CompletableFuture<NutritionInfo> getNutritionInfo(String query) throws InterruptedException, ExecutionException {
-        CompletableFuture<NutritionInfo> callResult = nutritionLookupService.findNutritionInfo(query);
-        return callResult;
+        return nutritionLookupService.findNutritionInfo(query);
     }
 
     public CompletableFuture<IngredientAnalysis> getIngAnalysis(String query) throws InterruptedException, ExecutionException {

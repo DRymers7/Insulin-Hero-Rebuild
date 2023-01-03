@@ -275,4 +275,7 @@ VALUES (10.0, 10.0, '2022/12/12 00:00:00', 'Fiasp', 'Strong', 0.14);
 INSERT INTO insulin (base_level, avg_level, time_last_dose, insulin_brand_name, insulin_strength, insulin_ratio)
 VALUES (10.0, 10.0, '2022/11/11 00:00:00', 'Fiasp', 'Strong', 0.14);
 
+INSERT INTO meals (serving_size, unit_of_measure, food_name, time_of_meal, date_of_meal) VALUES (0.50, 'oz', 'test', '12:00', '03/01/2023');
+INSERT INTO meals_user_join (meal_id, user_id) VALUES (1, 1);
+
 COMMIT TRANSACTION
