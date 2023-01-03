@@ -29,8 +29,22 @@ public class NutritionApiHelper {
         this.mealDao = mealDao;
     }
 
-    public List<Meal> handleMealCreationAndNutritionData(String query, int userId) {
-        return null;
+    public void handleMealCreationAndNutritionData(String query, int userId) throws InterruptedException, ExecutionException {
+        long startTime = System.currentTimeMillis();
+        logger.info("Start time for operation: " + startTime);
+        CompletableFuture<NutritionInfo> nutritionInfo = getNutritionInfo(query);
+        CompletableFuture<IngredientAnalysis> ingredientAnalysis = getIngredientAnalysis(query).thenApply((ingredient) -> {
+
+        })
+
+    }
+
+    private CompletableFuture<NutritionInfo> getNutritionInfoObject(String query) throws InterruptedException, ExecutionException {
+        return nutritionLookupService.findNutritionInfo(query);
+    }
+
+    private CompletableFuture<IngredientAnalysis> getIngredientAnalysis(String query) throws InterruptedException, ExecutionException {
+        return glLookupService.getQueryIngredients(query);
     }
 
 

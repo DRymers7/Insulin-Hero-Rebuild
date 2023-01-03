@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class NutritionLookupService {
 
-    private static final Logger logger = LoggerFactory.getLogger(NutritionLookupService.class);
+    private final Logger logger = LoggerFactory.getLogger(NutritionLookupService.class);
     private final String baseApiUrl = "https://api.edamam.com/api/nutrition-data";
     private String appId = "85ed73ec";
     private String PUBLIC_KEY = "e8c31b0307539eb71fd91bfeab934140";
@@ -30,7 +30,7 @@ public class NutritionLookupService {
     @Async
     public CompletableFuture<NutritionInfo> findNutritionInfo(String searchQuery) throws InterruptedException, ExecutionException {
         try {
-            logger.info("Making nutrition info request for: " + searchQuery);
+            logger.info("Making nutrition info request for: " + searchQuery + " at time " + System.currentTimeMillis());
             String url = baseApiUrl + "?app_id=" + appId + "&app_key=" + PUBLIC_KEY + "&nutrition-type=" + nutritionType + "&ingr=" + searchQuery + "&If-None-Match";
             NutritionInfo results = restTemplate.getForObject(url, NutritionInfo.class);
             return CompletableFuture.completedFuture(results);
