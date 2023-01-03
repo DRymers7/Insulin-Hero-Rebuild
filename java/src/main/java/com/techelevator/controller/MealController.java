@@ -36,7 +36,7 @@ public class MealController {
     }
 
     @PostMapping("/meals")
-    public void createNewUserMeal(@RequestBody String mealQuery, Principal principal) {
+    public void createNewUserMeal(@RequestBody Meal mealQuery, Principal principal) {
         int userId = userDao.findIdByUsername(principal.getName());
         logger.info("Received createMealRequest for user: " + userId);
 

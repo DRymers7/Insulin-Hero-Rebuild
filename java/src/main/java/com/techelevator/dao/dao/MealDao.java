@@ -1,6 +1,7 @@
 package com.techelevator.dao.dao;
 
 import com.techelevator.model.pojos.Meal;
+import com.techelevator.model.pojos.MealInformation;
 import com.techelevator.model.pojos.nutritionapi.wrappers.TotalNutrients;
 
 import java.sql.SQLException;
@@ -10,6 +11,6 @@ public interface MealDao {
 
     List<Meal> getUserOneDayMeals(int userId);
     int createNewMeal(int userId, Meal meal) throws SQLException;
-    void saveMealInformation(int mealId, TotalNutrients totalNutrients, Meal meal) throws SQLException;
+    void saveMealInformation(int mealId, MealInformation mealInformation) throws SQLException;
 
 }

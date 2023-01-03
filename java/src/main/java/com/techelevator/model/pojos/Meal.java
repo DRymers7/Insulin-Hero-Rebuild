@@ -6,8 +6,7 @@ import java.time.LocalTime;
 public class Meal {
 
     private int mealId;
-    private double servingSize;
-    private String unitOfMeasure;
+    private double servingSizeCarbs;
     private String foodName;
     private LocalTime timeOfMeal;
     private LocalDate dateOfMeal;
@@ -23,20 +22,12 @@ public class Meal {
         this.mealId = mealId;
     }
 
-    public double getServingSize() {
-        return servingSize;
+    public double getServingSizeCarbs() {
+        return servingSizeCarbs;
     }
 
-    public void setServingSize(double servingSize) {
-        this.servingSize = servingSize;
-    }
-
-    public String getUnitOfMeasure() {
-        return unitOfMeasure;
-    }
-
-    public void setUnitOfMeasure(String unitOfMeasure) {
-        this.unitOfMeasure = unitOfMeasure;
+    public void setServingSizeCarbs(double servingSizeCarbs) {
+        this.servingSizeCarbs = servingSizeCarbs;
     }
 
     public String getFoodName() {

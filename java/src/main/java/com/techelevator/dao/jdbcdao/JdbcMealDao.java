@@ -2,6 +2,7 @@ package com.techelevator.dao.jdbcdao;
 
 import com.techelevator.dao.dao.MealDao;
 import com.techelevator.model.pojos.Meal;
+import com.techelevator.model.pojos.MealInformation;
 import com.techelevator.model.pojos.nutritionapi.wrappers.TotalNutrients;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -70,7 +71,7 @@ public class JdbcMealDao implements MealDao {
     }
 
     @Override
-    public void saveMealInformation(int mealId, TotalNutrients totalNutrients, Meal meal) throws SQLException {
+    public void saveMealInformation(int mealId, MealInformation mealInformation) throws SQLException {
 
 
 

@@ -138,8 +138,7 @@ CONSTRAINT FK_insulin_user_data_join_user_data FOREIGN KEY (user_id) REFERENCES 
 CREATE TABLE meals (
 	
 meal_id int DEFAULT nextval('seq_meal_id'::regclass) NOT NULL unique,
-serving_size decimal(3,2),
-unit_of_measure varchar(16),
+serving_size_carbs decimal(3,2),
 food_name varchar (32),
 time_of_meal TIME DEFAULT CURRENT_TIME,
 date_of_meal DATE DEFAULT CURRENT_DATE
@@ -275,7 +274,7 @@ VALUES (10.0, 10.0, '2022/12/12 00:00:00', 'Fiasp', 'Strong', 0.14);
 INSERT INTO insulin (base_level, avg_level, time_last_dose, insulin_brand_name, insulin_strength, insulin_ratio)
 VALUES (10.0, 10.0, '2022/11/11 00:00:00', 'Fiasp', 'Strong', 0.14);
 
-INSERT INTO meals (serving_size, unit_of_measure, food_name, time_of_meal, date_of_meal) VALUES (0.50, 'oz', 'test', '12:00', '03/01/2023');
+INSERT INTO meals (serving_size_carbs, food_name, time_of_meal, date_of_meal) VALUES (2.1, 'test', '12:00', current_date);
 INSERT INTO meals_user_join (meal_id, user_id) VALUES (1, 1);
 
 COMMIT TRANSACTION
