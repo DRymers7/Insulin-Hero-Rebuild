@@ -3,7 +3,7 @@
 *The motivation for creating this project is to rebuild and improve upon my capstone project from Tech Elevator, as well as produce an open source solution designed to help people suffering from this particular affliction. I wish to implement features that have been well researched, helpful, and directly requested by people in my life who have diabetes or are prediabetic.*
 <!-- > Live demo [_here_](https://www.example.com).  If you have the project hosted somewhere, include the link here. -->
 
-Note: This is a rebuilt version of my final capstone at Tech Elevator. I wanted to rebuild this project in order to show of my abilities in exclusivity (as opposed to the previous version being a group project), implement features that were more clearly defined and able to help users (as opposed to simply feature stuffing the application for showing purposes), and experiment with new technologies that we did not learn in the cohort, such as React.
+Note: This is a rebuilt version of my final capstone at Tech Elevator. I wanted to rebuild this project in order to create numerous improvements that were cut out due to the previous version's two-week timeline, implement features that were more clearly defined and requested by people directly suffering from diabetes, and experiment with new technologies that we did not learn in the cohort, such as React.
 
 This project is not complete, but I believe in quality over speed in this context. Throughout the project I will comment in areas that I think I can improve upon later. As I learn more, these areas will be revisited and optimized.
 
