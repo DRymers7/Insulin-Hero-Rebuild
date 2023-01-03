@@ -7,9 +7,8 @@ import com.techelevator.services.GLLookupService;
 import com.techelevator.services.NutritionLookupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.relational.core.sql.In;
+
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -28,6 +27,10 @@ public class NutritionApiHelper {
         this.mealDao = mealDao;
     }
 
+
+
+
+
     public CompletableFuture<NutritionInfo> getNutritionInfo(String query) throws InterruptedException, ExecutionException {
         CompletableFuture<NutritionInfo> callResult = nutritionLookupService.findNutritionInfo(query);
         return callResult;
@@ -36,8 +39,6 @@ public class NutritionApiHelper {
     public CompletableFuture<IngredientAnalysis> getIngAnalysis(String query) throws InterruptedException, ExecutionException {
         return glLookupService.getQueryIngredients(query);
     }
-
-
 
 
 }
