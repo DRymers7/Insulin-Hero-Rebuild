@@ -4,6 +4,7 @@ import com.techelevator.dao.dao.MealDao;
 import com.techelevator.model.pojos.Meal;
 import com.techelevator.model.pojos.glycemicloadapi.glcalculation.GlycemicLoadData;
 import com.techelevator.model.pojos.glycemicloadapi.recipeanalysis.IngredientAnalysis;
+import com.techelevator.model.pojos.glycemicloadapi.recipeanalysis.Ingredients;
 import com.techelevator.model.pojos.nutritionapi.wrappers.NutritionInfo;
 import com.techelevator.services.GLLookupService;
 import com.techelevator.services.NutritionLookupService;
@@ -43,18 +44,11 @@ public class NutritionApiHelper {
         logger.info("Start time for meal creation and nutrition data operation: " + startTime);
 
         CompletableFuture<NutritionInfo> nutritionInfo = handleNutritionalInformationCall(query, meal, userId);
-        CompletableFuture<IngredientAnalysis> ingredientAnalysisFuture = handleIngredientAnalysis(query)
+        CompletableFuture<GlycemicLoadData> glLoadData = handleObtainingGlLoad(query);
 
+        CompletableFuture.allOf(nutritionInfo, glLoadData).join();
 
-        CompletableFuture<IngredientAnalysis> ingredientAnalysis = getIngredientAnalysis(query).thenApply((ingredient) -> {
-            List<String> ingredientList = new ArrayList<>();
-            Arrays.stream(ingredient.getIngredients()).forEach((i) -> {
-                if (i.isInclude()) {
-                    ingredientList.add(i.getName());
-                }
-            });
-        })
-
+        logger.info("End time for meal creation and nutrition data operation: " + System.currentTimeMillis());
     }
 
     private CompletableFuture<NutritionInfo> handleNutritionalInformationCall(String query, Meal meal, int userId) throws InterruptedException, ExecutionException {
@@ -81,20 +75,19 @@ public class NutritionApiHelper {
         return meal;
     }
 
-    private CompletableFuture<IngredientAnalysis> handleIngredientAnalysis(String query) throws InterruptedException, ExecutionException {
-        return glLookupService.getQueryIngredients(query).thenApply((returnValue) -> {
-
-        })
+    private CompletableFuture<GlycemicLoadData> handleObtainingGlLoad(String query) throws InterruptedException, ExecutionException {
+        CompletableFuture<IngredientAnalysis> ingredientAnalysis = glLookupService.getQueryIngredients(query);
+        return ingredientAnalysis.thenApply((returnValue) -> {
+            try {
+                CompletableFuture<GlycemicLoadData> result = glLookupService.getGlycemicLoadForQuery(query, Stream.of(returnValue.getIngredients()).map(Ingredients::getName).toArray(String[]::new));
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            };
+            return null;
+        });
     }
 
-    private CompletableFuture<GlycemicLoadData> calculateGlycemicLoad(String query, String[] ingredients) throws InterruptedException, ExecutionException {
-        return glLookupService.getGlycemicLoadForQuery(query, ingredients);
-    }
 
-
-    private CompletableFuture<IngredientAnalysis> getIngredientAnalysis(String query) throws InterruptedException, ExecutionException {
-        return glLookupService.getQueryIngredients(query);
-    }
 
 
 

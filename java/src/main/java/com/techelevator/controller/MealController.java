@@ -6,11 +6,14 @@ import com.techelevator.helperclasses.NutritionApiHelper;
 import com.techelevator.model.pojos.Meal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @CrossOrigin
@@ -37,8 +40,13 @@ public class MealController {
 
     @PostMapping("/meals")
     public void createNewUserMeal(@RequestBody Meal mealQuery, Principal principal) {
-        int userId = userDao.findIdByUsername(principal.getName());
-        logger.info("Received createMealRequest for user: " + userId);
+        try {
+            int userId = userDao.findIdByUsername(principal.getName());
+            logger.info("Received createMealRequest for user: " + userId);
+            nutritionApiHelper.handleMealCreationAndNutritionData(mealQuery.getFoodName(), mealQuery, userId);
+        } catch (RuntimeException | InterruptedException | ExecutionException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unable to create meal");
+        }
 
     }
 
