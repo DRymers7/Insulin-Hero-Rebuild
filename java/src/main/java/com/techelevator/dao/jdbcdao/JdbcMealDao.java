@@ -4,6 +4,8 @@ import com.techelevator.dao.dao.MealDao;
 import com.techelevator.model.pojos.Meal;
 import com.techelevator.model.pojos.MealInformation;
 import com.techelevator.model.pojos.nutritionapi.wrappers.TotalNutrients;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Component
 public class JdbcMealDao implements MealDao {
+
+    private static final Logger logger = LoggerFactory.getLogger(JdbcMealDao.class);
 
     private JdbcTemplate jdbcTemplate;
 
@@ -73,8 +77,6 @@ public class JdbcMealDao implements MealDao {
     @Override
     public void saveMealInformation(int mealId, MealInformation mealInformation) throws SQLException {
 
-
-
         String sql = "INSERT INTO public.meal_information( " +
                 "meal_id, glycemic_load, calories_g, total_fats_g, saturated_fats_g, trans_fats_g, fatty_acids_monosaturated_g, fatty_acids_polyunsaturated_g, " +
                 "carbs_by_difference_g, total_carbs_g, fiber_g, sugars_g, added_sugars_g, protein_g, cholesterol_mg, sodium_mg, calcium_mg, magnesium_mg, potassium_mg, " +
@@ -82,15 +84,24 @@ public class JdbcMealDao implements MealDao {
                 "vit_b12_micg, vit_d_micg, vit_e_micg, vit_k_micg, water_g) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-
+        if (jdbcTemplate.update(sql, mealId, mealInformation.getGlycemicLoad(), mealInformation.getCalories(), mealInformation.getTotalFats(),
+                mealInformation.getSaturatedFats(), mealInformation.getTransFats(), mealInformation.getFattyAcidsMonosaturated(), mealInformation.getFatyAcidsPolyUnsaturated(),
+                mealInformation.getCarbsByDifference(), mealInformation.getTotalCarbs(), mealInformation.getFiber(), mealInformation.getSugars(), mealInformation.getAddedSugars(),
+                mealInformation.getProtein(), mealInformation.getCholesterol(), mealInformation.getSodium(), mealInformation.getCalcium(), mealInformation.getMagnesium(),
+                mealInformation.getPotassium(), mealInformation.getIron(), mealInformation.getZinc(), mealInformation.getPhosphorous(), mealInformation.getVitaminA(), mealInformation.getVitaminC(),
+                mealInformation.getThamin(), mealInformation.getRiboflavin(), mealInformation.getNiacin(), mealInformation.getVitaminB6(), mealInformation.getFolate(), mealInformation.getFolateFromFood(),
+                mealInformation.getFolicAcid(), mealInformation.getVitB12(), mealInformation.getVitD(), mealInformation.getVitE(), mealInformation.getVitK(), mealInformation.getWater()) != 1) {
+            throw new SQLException("Could not create meal information");
+        } else {
+            logger.info("Created meal information object for meal: " + mealId + " at system time: " + System.currentTimeMillis());
+        }
 
     }
 
     private Meal mapRowToMealObject(SqlRowSet rowSet) {
         Meal meal = new Meal();
         meal.setMealId(rowSet.getInt("meal_id"));
-        meal.setServingSize(rowSet.getDouble("serving_size"));
-        meal.setUnitOfMeasure(rowSet.getString("unit_of_measure"));
+        meal.setServingSizeCarbs(rowSet.getDouble("serving_size_carbs"));
         meal.setFoodName(rowSet.getString("food_name"));
         meal.setTimeOfMeal(rowSet.getTime("time_of_meal").toLocalTime());
         meal.setDateOfMeal(rowSet.getDate("date_of_meal").toLocalDate());

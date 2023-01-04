@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -58,8 +59,12 @@ public class NutritionApiHelper {
     private CompletableFuture<NutritionInfo> handleNutritionalInformationCall(String query, Meal meal, int userId) throws InterruptedException, ExecutionException {
         return nutritionLookupService.findNutritionInfo(query).thenApply((returnValue) -> {
             Meal mealToInsert = createMealFromObject(query, meal, returnValue);
-
-        })
+            try {
+                int mealId = mealDao.createNewMeal(userId, mealToInsert);
+            } catch (SQLException e) {
+                throw new RuntimeException();
+            }
+        }).
     }
 
     private Meal createMealFromObject(String query, Meal meal, NutritionInfo nutritionInfo) {

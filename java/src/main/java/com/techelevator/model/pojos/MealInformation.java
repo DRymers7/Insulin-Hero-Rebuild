@@ -14,6 +14,7 @@ public class MealInformation {
     private double totalCarbs;
     private double fiber;
     private double sugars;
+    private double addedSugars;
     private double protein;
     private double cholesterol;
     private double sodium;
@@ -32,6 +33,12 @@ public class MealInformation {
     private double folate;
     private double folateFromFood;
     private double folicAcid;
+
+    private double vitB12;
+    private double vitD;
+    private double vitE;
+    private double vitK;
+    private double water;
 
     public MealInformation() {}
 
@@ -129,6 +136,14 @@ public class MealInformation {
 
     public void setSugars(double sugars) {
         this.sugars = sugars;
+    }
+
+    public double getAddedSugars() {
+        return addedSugars;
+    }
+
+    public void setAddedSugars(double addedSugars) {
+        this.addedSugars = addedSugars;
     }
 
     public double getProtein() {
@@ -273,5 +288,45 @@ public class MealInformation {
 
     public void setFolicAcid(double folicAcid) {
         this.folicAcid = folicAcid;
+    }
+
+    public double getVitB12() {
+        return vitB12;
+    }
+
+    public void setVitB12(double vitB12) {
+        this.vitB12 = vitB12;
+    }
+
+    public double getVitD() {
+        return vitD;
+    }
+
+    public void setVitD(double vitD) {
+        this.vitD = vitD;
+    }
+
+    public double getVitE() {
+        return vitE;
+    }
+
+    public void setVitE(double vitE) {
+        this.vitE = vitE;
+    }
+
+    public double getVitK() {
+        return vitK;
+    }
+
+    public void setVitK(double vitK) {
+        this.vitK = vitK;
+    }
+
+    public double getWater() {
+        return water;
+    }
+
+    public void setWater(double water) {
+        this.water = water;
     }
 }
