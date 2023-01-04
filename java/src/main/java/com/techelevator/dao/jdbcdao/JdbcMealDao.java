@@ -50,10 +50,10 @@ public class JdbcMealDao implements MealDao {
 
         try {
 
-            String sql = "INSERT INTO meals (serving_size, unit_of_measure, food_name, time_of_meal, date_of_meal) " +
-                    "VALUES (?, ?, ?, ?, ?) RETURNING meal_id";
+            String sql = "INSERT INTO meals (serving_size_carbs, food_name, time_of_meal, date_of_meal) " +
+                    "VALUES (?, ?, ?, ?) RETURNING meal_id";
 
-            int mealId = jdbcTemplate.queryForObject(sql, Integer.class, meal.getServingSize(), meal.getUnitOfMeasure(), meal.getFoodName(),
+            int mealId = jdbcTemplate.queryForObject(sql, Integer.class, meal.getServingSizeCarbs(), meal.getFoodName(),
                     meal.getTimeOfMeal(), meal.getDateOfMeal());
 
             if (!(createMealUserJoinEntry(userId, mealId))) {

@@ -43,6 +43,7 @@ public class NutritionApiHelper {
         logger.info("Start time for meal creation and nutrition data operation: " + startTime);
 
         CompletableFuture<NutritionInfo> nutritionInfo = handleNutritionalInformationCall(query, meal, userId);
+        CompletableFuture<IngredientAnalysis> ingredientAnalysisFuture = handleIngredientAnalysis(query)
 
 
         CompletableFuture<IngredientAnalysis> ingredientAnalysis = getIngredientAnalysis(query).thenApply((ingredient) -> {
@@ -60,11 +61,12 @@ public class NutritionApiHelper {
         return nutritionLookupService.findNutritionInfo(query).thenApply((returnValue) -> {
             Meal mealToInsert = createMealFromObject(query, meal, returnValue);
             try {
-                int mealId = mealDao.createNewMeal(userId, mealToInsert);
+                mealDao.createNewMeal(userId, mealToInsert);
             } catch (SQLException e) {
-                throw new RuntimeException();
+                throw new RuntimeException(e);
             }
-        }).
+            return returnValue;
+        });
     }
 
     private Meal createMealFromObject(String query, Meal meal, NutritionInfo nutritionInfo) {
@@ -77,6 +79,12 @@ public class NutritionApiHelper {
             meal.setDateOfMeal(LocalDate.now());
         }
         return meal;
+    }
+
+    private CompletableFuture<IngredientAnalysis> handleIngredientAnalysis(String query) throws InterruptedException, ExecutionException {
+        return glLookupService.getQueryIngredients(query).thenApply((returnValue) -> {
+
+        })
     }
 
     private CompletableFuture<GlycemicLoadData> calculateGlycemicLoad(String query, String[] ingredients) throws InterruptedException, ExecutionException {
