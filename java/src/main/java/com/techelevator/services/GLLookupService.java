@@ -51,8 +51,6 @@ public class GLLookupService {
         } catch (ResponseStatusException e) {
             throw new ExecutionException(e.getReason(), e);
         }
-
     }
-
 
 }

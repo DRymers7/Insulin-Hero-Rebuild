@@ -6,6 +6,7 @@ import com.techelevator.model.pojos.glycemicloadapi.glcalculation.GlycemicLoadDa
 import com.techelevator.model.pojos.glycemicloadapi.recipeanalysis.IngredientAnalysis;
 import com.techelevator.model.pojos.glycemicloadapi.recipeanalysis.Ingredients;
 import com.techelevator.model.pojos.nutritionapi.wrappers.NutritionInfo;
+import com.techelevator.model.pojos.nutritionapi.wrappers.TotalNutrients;
 import com.techelevator.services.GLLookupService;
 import com.techelevator.services.NutritionLookupService;
 import org.slf4j.Logger;
@@ -48,6 +49,9 @@ public class NutritionApiHelper {
 
         CompletableFuture.allOf(nutritionInfo, glLoadData).join();
 
+        // feed this value into a private method to insert into the database as meal information 
+        glLoadData.get().getTotalGlycemicLoad();
+
         logger.info("End time for meal creation and nutrition data operation: " + System.currentTimeMillis());
     }
 
@@ -80,16 +84,16 @@ public class NutritionApiHelper {
         return ingredientAnalysis.thenApply((returnValue) -> {
             try {
                 CompletableFuture<GlycemicLoadData> result = glLookupService.getGlycemicLoadForQuery(query, Stream.of(returnValue.getIngredients()).map(Ingredients::getName).toArray(String[]::new));
+                return result.get();
             } catch (InterruptedException | ExecutionException e) {
                 throw new RuntimeException(e);
-            };
-            return null;
+            }
         });
     }
 
+    private void saveMealInformation(double glycemicIndexCalculation, TotalNutrients totalNutrients) {
 
-
-
+    }
 
     public CompletableFuture<NutritionInfo> getNutritionInfo(String query) throws InterruptedException, ExecutionException {
         return nutritionLookupService.findNutritionInfo(query);
