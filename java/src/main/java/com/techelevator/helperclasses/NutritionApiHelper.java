@@ -40,7 +40,7 @@ public class NutritionApiHelper {
         this.mealDao = mealDao;
     }
 
-    public void handleMealCreationAndNutritionData(String query, Meal meal, int userId) throws InterruptedException, ExecutionException {
+    public void handleMealCreationAndNutritionData(String query, Meal meal, int userId) throws InterruptedException, ExecutionException, SQLException {
         long startTime = System.currentTimeMillis();
         logger.info("Start time for meal creation and nutrition data operation: " + startTime);
 
@@ -92,14 +92,49 @@ public class NutritionApiHelper {
     }
 
     // This is an ineffecient part of the solution, but I currently cannot figure out a better way to extract the meal Id from the previous methods
-    // without making a call here.
-    private void saveMealInformation(double glycemicIndexCalculation, TotalNutrients totalNutrients, int userId) {
+    // without making a call here. Additionally, it isn't clean to simply call the setters on everything, but I cannot figure out a faster way to do it.
+    private void saveMealInformation(double glycemicIndexCalculation, TotalNutrients totalNutrients, int userId) throws SQLException {
         MealInformation mealInformation = new MealInformation();
-
+        mealInformation.setMealId(mealDao.getMostRecentUserMeal(userId).getMealId());
+        mealInformation.setGlycemicLoad(glycemicIndexCalculation);
+        setGenericAttributes(mealInformation, totalNutrients);
+        mealDao.saveMealInformation(mealInformation.getMealId(), mealInformation);
     }
 
-    private MealInformation setMealInformationAttributes(MealInformation mealInformation, TotalNutrients totalNutrients) {
-        mealInformation.setMealId();
+    private void setGenericAttributes(MealInformation mealInformation, TotalNutrients totalNutrients) {
+        mealInformation.setCalories(totalNutrients.getEnerc_Kcal().getQuantity());
+        mealInformation.setTotalFats(totalNutrients.getFat().getQuantity());
+        mealInformation.setSaturatedFats(totalNutrients.getFasat().getQuantity());
+        mealInformation.setTransFats(totalNutrients.getFatrn().getQuantity());
+        mealInformation.setFattyAcidsMonosaturated(totalNutrients.getFams().getQuantity());
+        mealInformation.setFatyAcidsPolyUnsaturated(totalNutrients.getFapu().getQuantity());
+        mealInformation.setCarbsByDifference(totalNutrients.getChocdf().getQuantity());
+        mealInformation.setTotalCarbs(totalNutrients.getChocdfNet().getQuantity());
+        mealInformation.setFiber(totalNutrients.getFibtg().getQuantity());
+        mealInformation.setSugars(totalNutrients.getSugar().getQuantity());
+        mealInformation.setAddedSugars(totalNutrients.getAddedSugar().getQuantity());
+        mealInformation.setCholesterol(totalNutrients.getChole().getQuantity());
+        mealInformation.setSodium(totalNutrients.getNa().getQuantity());
+        mealInformation.setCalcium(totalNutrients.getCa().getQuantity());
+        mealInformation.setMagnesium(totalNutrients.getMg().getQuantity());
+        mealInformation.setPotassium(totalNutrients.getK().getQuantity());
+        mealInformation.setIron(totalNutrients.getFe().getQuantity());
+        mealInformation.setZinc(totalNutrients.getZn().getQuantity());
+        mealInformation.setPhosphorous(totalNutrients.getP().getQuantity());
+        mealInformation.setVitaminA(totalNutrients.getVitaRae().getQuantity());
+        mealInformation.setVitaminC(totalNutrients.getViTc().getQuantity());
+        mealInformation.setThamin(totalNutrients.getThia().getQuantity());
+        mealInformation.setRiboflavin(totalNutrients.getRibf().getQuantity());
+        mealInformation.setNiacin(totalNutrients.getNia().getQuantity());
+        mealInformation.setVitaminB6(totalNutrients.getVitb6A().getQuantity());
+        mealInformation.setFolate(totalNutrients.getFoldfe().getQuantity());
+        mealInformation.setFolateFromFood(totalNutrients.getFolfd().getQuantity());
+        mealInformation.setFolicAcid(totalNutrients.getFolac().getQuantity());
+        mealInformation.setVitB12(totalNutrients.getVitb12().getQuantity());
+        mealInformation.setVitD(totalNutrients.getVitd().getQuantity());
+        mealInformation.setVitE(totalNutrients.getTopcha().getQuantity());
+        mealInformation.setVitK(totalNutrients.getK().getQuantity());
+        mealInformation.setWater(totalNutrients.getWater().getQuantity());
     }
 
     public CompletableFuture<NutritionInfo> getNutritionInfo(String query) throws InterruptedException, ExecutionException {

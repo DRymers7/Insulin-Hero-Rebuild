@@ -60,6 +60,8 @@ public class TotalNutrients {
     private FOLDFE foldfe;
     @JsonProperty("FOLFD")
     private FOLFD folfd;
+    @JsonProperty("FOLAC")
+    private FOLAC folac;
     @JsonProperty("VITB12")
     private VITB12 vitb12;
     @JsonProperty("VITD")
@@ -295,6 +297,14 @@ public class TotalNutrients {
 
     public void setFolfd(FOLFD folfd) {
         this.folfd = folfd;
+    }
+
+    public FOLAC getFolac() {
+        return folac;
+    }
+
+    public void setFolac(FOLAC folac) {
+        this.folac = folac;
     }
 
     public VITB12 getVitb12() {
