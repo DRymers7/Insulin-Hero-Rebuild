@@ -3,6 +3,7 @@ package com.techelevator.model.pojos;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+
 public class UserData {
 
     private int userId;

@@ -52,6 +52,7 @@ public class NutritionApiHelper {
         saveMealInformation(glLoadData.get().getTotalGlycemicLoad(), nutritionInfo.get().getTotalNutrients(), userId);
 
         logger.info("End time for meal creation and nutrition data operation: " + System.currentTimeMillis());
+        System.out.println("EHEHEHE");
     }
 
     private CompletableFuture<NutritionInfo> handleNutritionalInformationCall(String query, Meal meal, int userId) throws InterruptedException, ExecutionException {
