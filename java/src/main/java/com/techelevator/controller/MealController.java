@@ -34,9 +34,13 @@ public class MealController {
 
     @GetMapping("/meals")
     public List<Meal> returnUserMeals(Principal principal) {
-        int userId = userDao.findIdByUsername(principal.getName());
-        logger.info("Returning user meals for: " + userId);
-        return mealDao.getUserOneDayMeals(userId);
+        try {
+            int userId = userDao.findIdByUsername(principal.getName());
+            logger.info("Returning user meals for: " + userId);
+            return mealDao.getUserOneDayMeals(userId);
+        } catch (SQLException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No meals on record.");
+        }
     }
 
     @PostMapping("/meals")
@@ -45,7 +49,7 @@ public class MealController {
             int userId = userDao.findIdByUsername(principal.getName());
             logger.info("Received createMealRequest for user: " + userId);
             nutritionApiHelper.handleMealCreationAndNutritionData(mealQuery.getFoodName(), mealQuery, userId);
-        } catch (RuntimeException | InterruptedException | ExecutionException e) {
+        } catch (RuntimeException | InterruptedException | ExecutionException | SQLException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unable to create meal");
         }
 

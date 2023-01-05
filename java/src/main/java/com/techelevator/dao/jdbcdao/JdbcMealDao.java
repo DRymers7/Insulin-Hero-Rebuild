@@ -26,22 +26,27 @@ public class JdbcMealDao implements MealDao {
     }
 
     @Override
-    public List<Meal> getUserOneDayMeals(int userId) {
+    public List<Meal> getUserOneDayMeals(int userId) throws SQLException {
 
-            List<Meal> dailyMeals = new ArrayList<>();
+        List<Meal> dailyMeals = new ArrayList<>();
 
-            String sql = "SELECT m.meal_id, serving_size, unit_of_measure, food_name, time_of_meal, date_of_meal " +
-                    "FROM meals m " +
-                    "JOIN meals_user_join mj ON m.meal_id = mj.meal_id " +
-                    "JOIN user_data ud ON ud.user_id = mj.user_id " +
-                    "WHERE ud.user_id = ? AND m.date_of_meal = date_trunc('day', current_date)";
+        String sql = "SELECT m.meal_id, serving_size_carbs, food_name, time_of_meal, date_of_meal " +
+                "FROM meals m " +
+                "JOIN meals_user_join mj ON m.meal_id = mj.meal_id " +
+                "JOIN user_data ud ON ud.user_id = mj.user_id " +
+                "WHERE ud.user_id = ? AND m.date_of_meal = date_trunc('day', current_date)";
 
-            SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, userId);
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, userId);
 
-            while (rowSet.next()) {
-                dailyMeals.add(mapRowToMealObject(rowSet));
-            }
+        while (rowSet.next()) {
+            dailyMeals.add(mapRowToMealObject(rowSet));
+        }
+        if (dailyMeals.size() == 0) {
+            throw new SQLException("Could not find any meals for this user.");
+        } else {
             return dailyMeals;
+        }
+
 
     }
 
