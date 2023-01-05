@@ -93,12 +93,17 @@ public class NutritionApiHelper {
 
     // This is an ineffecient part of the solution, but I currently cannot figure out a better way to extract the meal Id from the previous methods
     // without making a call here. Additionally, it isn't clean to simply call the setters on everything, but I cannot figure out a faster way to do it.
-    private void saveMealInformation(double glycemicIndexCalculation, TotalNutrients totalNutrients, int userId) throws SQLException {
-        MealInformation mealInformation = new MealInformation();
-        mealInformation.setMealId(mealDao.getMostRecentUserMeal(userId).getMealId());
-        mealInformation.setGlycemicLoad(glycemicIndexCalculation);
-        setGenericAttributes(mealInformation, totalNutrients);
-        mealDao.saveMealInformation(mealInformation.getMealId(), mealInformation);
+    private void saveMealInformation(double glycemicIndexCalculation, TotalNutrients totalNutrients, int userId) throws RuntimeException {
+
+        try {
+            MealInformation mealInformation = new MealInformation();
+            mealInformation.setMealId(mealDao.getMostRecentUserMeal(userId).getMealId());
+            mealInformation.setGlycemicLoad(glycemicIndexCalculation);
+            setGenericAttributes(mealInformation, totalNutrients);
+            mealDao.saveMealInformation(mealInformation.getMealId(), mealInformation);
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e.getCause());
+        }
     }
 
     private void setGenericAttributes(MealInformation mealInformation, TotalNutrients totalNutrients) {
