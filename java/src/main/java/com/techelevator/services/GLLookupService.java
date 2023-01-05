@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class GLLookupService {
 
-    private final Logger logger = LoggerFactory.getLogger(GLLookupService.class);
+    private static final Logger logger = LoggerFactory.getLogger(GLLookupService.class);
     private final String baseApiUrl = "https://api.spoonacular.com";
     private final String API_KEY = "32f4c3e887b54bbc8c17086836bc2b56";
     private final RestTemplate restTemplate;

@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 @PreAuthorize("isAuthenticated()")
 public class MealController {
 
-    private Logger logger = LoggerFactory.getLogger(MealController.class);
+    private static final Logger logger = LoggerFactory.getLogger(MealController.class);
     private MealDao mealDao;
     private UserDao userDao;
     private NutritionApiHelper nutritionApiHelper;

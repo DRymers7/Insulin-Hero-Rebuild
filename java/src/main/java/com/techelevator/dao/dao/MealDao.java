@@ -10,6 +10,7 @@ import java.util.List;
 public interface MealDao {
 
     List<Meal> getUserOneDayMeals(int userId);
+    Meal getMostRecentUserMeal(int userId) throws SQLException;
     int createNewMeal(int userId, Meal meal) throws SQLException;
     void saveMealInformation(int mealId, MealInformation mealInformation) throws SQLException;
 

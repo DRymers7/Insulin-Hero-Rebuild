@@ -2,6 +2,7 @@ package com.techelevator.helperclasses;
 
 import com.techelevator.dao.dao.MealDao;
 import com.techelevator.model.pojos.Meal;
+import com.techelevator.model.pojos.MealInformation;
 import com.techelevator.model.pojos.glycemicloadapi.glcalculation.GlycemicLoadData;
 import com.techelevator.model.pojos.glycemicloadapi.recipeanalysis.IngredientAnalysis;
 import com.techelevator.model.pojos.glycemicloadapi.recipeanalysis.Ingredients;
@@ -32,7 +33,6 @@ public class NutritionApiHelper {
     private final NutritionLookupService nutritionLookupService;
     private final GLLookupService glLookupService;
     private MealDao mealDao;
-    private final int ONE_SERVING_CARBOHYDRATES = 15;
 
     public NutritionApiHelper(NutritionLookupService nutritionLookupService, GLLookupService glLookupService, MealDao mealDao) {
         this.nutritionLookupService = nutritionLookupService;
@@ -49,8 +49,7 @@ public class NutritionApiHelper {
 
         CompletableFuture.allOf(nutritionInfo, glLoadData).join();
 
-        // feed this value into a private method to insert into the database as meal information 
-        glLoadData.get().getTotalGlycemicLoad();
+        saveMealInformation(glLoadData.get().getTotalGlycemicLoad(), nutritionInfo.get().getTotalNutrients(), userId);
 
         logger.info("End time for meal creation and nutrition data operation: " + System.currentTimeMillis());
     }
@@ -68,6 +67,7 @@ public class NutritionApiHelper {
     }
 
     private Meal createMealFromObject(String query, Meal meal, NutritionInfo nutritionInfo) {
+        int ONE_SERVING_CARBOHYDRATES = 15;
         meal.setServingSizeCarbs(nutritionInfo.getTotalDaily().getChocdf().getQuantity() / ONE_SERVING_CARBOHYDRATES);
         meal.setFoodName(query.substring(0, 1).toUpperCase() + query.substring(1).toLowerCase());
         if (meal.getTimeOfMeal() == null) {
@@ -91,8 +91,15 @@ public class NutritionApiHelper {
         });
     }
 
-    private void saveMealInformation(double glycemicIndexCalculation, TotalNutrients totalNutrients) {
+    // This is an ineffecient part of the solution, but I currently cannot figure out a better way to extract the meal Id from the previous methods
+    // without making a call here.
+    private void saveMealInformation(double glycemicIndexCalculation, TotalNutrients totalNutrients, int userId) {
+        MealInformation mealInformation = new MealInformation();
 
+    }
+
+    private MealInformation setMealInformationAttributes(MealInformation mealInformation, TotalNutrients totalNutrients) {
+        mealInformation.setMealId();
     }
 
     public CompletableFuture<NutritionInfo> getNutritionInfo(String query) throws InterruptedException, ExecutionException {
