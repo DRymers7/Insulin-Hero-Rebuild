@@ -1,6 +1,6 @@
 package com.techelevator.model.login;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 
 public class RegisterUserDTO {
 
